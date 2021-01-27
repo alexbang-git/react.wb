@@ -5,7 +5,7 @@ class StorePicker extends React.Component {
   // handleClick() {
   //   alert("Button clicked!");
   // }
-  // 2. get the text from the input, create property myInput for the component
+  // 2. get the text from the input, create property 'myInput' for the component
   myInput = React.createRef();
 
   // using custom method like below to handle events won't work becuase it is not bound to 'this'
@@ -15,8 +15,11 @@ class StorePicker extends React.Component {
   goToStore = (event) => {
     // 1. stop page from submitting and refreshing the page
     event.preventDefault();
-    console.log("this from goToStore property on form submit-->", this);
+    // get text in the input field
+    // console.log("text in the input field-->", this.myInput);
+    const storeName = this.myInput.current.value;
     // 3. change the page to /store/what-user-entered
+    this.props.history.push(`/store/${storeName}`);
   };
 
   render() {
@@ -31,7 +34,7 @@ class StorePicker extends React.Component {
           placeholder="Store Name"
           defaultValue={getFunName()}
         />
-        <button type="submit">Visit Store -></button>
+        <button type="submit">Visit Store ➡</button>
       </form>
     );
   }
