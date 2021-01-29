@@ -1,6 +1,8 @@
 import Rebase from "re-base";
 import firebase from "firebase";
 
+// use Firebase to persis data
+
 const firebaseApp = firebase.initializeApp({
   apiKey: "AIzaSyD_gnfZ0_DhaNci1GK98n7MJrREBOvfcnE",
   authDomain: "catch-ab.firebaseapp.com",

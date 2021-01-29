@@ -14,10 +14,24 @@ class App extends React.Component {
 
   // listen to changes in the fish store and sync state with firebase
   componentDidMount() {
+    const { params } = this.props.match;
+    // first reinstate our localstorage
+    const localStorageRef = localStorage.getItem(params.storeId);
+    if (localStorageRef) {
+      this.setState({ order: JSON.parse(localStorageRef) });
+    }
     this.ref = base.syncState(`${this.props.match.params.storeID}/fishes`, {
       context: this,
       state: "fishes",
     });
+  }
+
+  componentDidUpdate() {
+    console.log("component updated!", this.state.order);
+    localStorage.setItem(
+      this.props.match.params.storeId,
+      JSON.stringify(this.state.order)
+    );
   }
 
   // you must stop listening to changes in the store to prevent memory leak
