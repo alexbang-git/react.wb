@@ -4,12 +4,26 @@ import Order from "./Order";
 import Inventory from "./Inventory";
 import sampleFishy from "../sample-fishes";
 import Fish from "./Fish";
+import base from "../base";
 
 class App extends React.Component {
   state = {
     fishes: {},
     order: {},
   };
+
+  // listen to changes in the fish store and sync state with firebase
+  componentDidMount() {
+    this.ref = base.syncState(`${this.props.match.params.storeID}/fishes`, {
+      context: this,
+      state: "fishes",
+    });
+  }
+
+  // you must stop listening to changes in the store to prevent memory leak
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
 
   // update fishes state
   addFish = (fish) => {
